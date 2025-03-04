@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student - WEB700</title>
+    <link rel="stylesheet" href="/css/theme.css">
+</head>
+<body>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/htmlDemo">HTML Demo</a>
+        <a href="/students">Students</a>
+        <a href="/tas">Teaching Assistants</a>
+        <a href="/courses">Courses</a>
+        <a href="/students/add">Add Student</a>
+    </nav>
+
+    <div class="container add-student-form"> 
+        <h1>Add New Student</h1>
+        <p>Fill in the details below to add a new student to the system. All fields are required unless specified otherwise:</p>
+
+        <form method="POST" action="/students/add">
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input class="form-control" name="firstName" type="text" placeholder="Enter first name" required />
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input class="form-control" name="lastName" type="text" placeholder="Enter last name" required />
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input class="form-control" name="email" type="email" placeholder="example@example.com" required />
+            </div>
+            <div class="form-group">
+                <label for="addressStreet">Address (Street):</label>
+                <input class="form-control" name="addressStreet" type="text" placeholder="Enter street address" required />
+            </div>
+            <div class="form-group">
+                <label for="addressCity">Address (City):</label>
+                <input class="form-control" name="addressCity" type="text" placeholder="Enter city" required />
+            </div>
+            <div class="form-group">
+                <label for="addressProvince">Address (Province):</label>
+                <input class="form-control" name="addressProvince" type="text" placeholder="Enter province" required />
+            </div>
+            <div class="form-group">
+                <label for="TA">Teaching Assistant:</label>
+                <input type="checkbox" name="TA" />
+                <span>Check if the student is a Teaching Assistant</span>
+            </div>
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select class="form-control" name="status" required>
+                    <option value="Full Time">Full Time</option>
+                    <option value="Part Time">Part Time</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="course">Course:</label>
+                <input class="form-control" name="course" type="number" placeholder="Enter course number" required />
+            </div>
+            <button type="submit" class="btn">Add Student</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Student Management | Powered by WEB700</p>
+    </footer>
+
+</body>
+</html>

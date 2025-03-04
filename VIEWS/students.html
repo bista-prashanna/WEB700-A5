@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEB700 - Student Website</title>
+    <link rel="stylesheet" href="/css/theme.css"> 
+</head>
+<body>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/htmlDemo">HTML Demo</a>
+        <a href="/students">Students</a>
+        <a href="/tas">Teaching Assistants</a>
+        <a href="/courses">Courses</a>
+        <a href="/students/add">Add Student</a>
+    </nav>
+
+    <div class="container">
+        <h1>Students List</h1>
+        <p id="error-message" style="color: red; display: none;">Error loading student data.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Number</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>TA</th>
+                    <th>Status</th>
+                    <th>Course</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!---->>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        fetch('/students.json')  
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                let tbody = document.querySelector("table tbody"); 
+                data.forEach(student => {
+                    let row = tbody.insertRow();
+                    row.innerHTML = `
+                        <td>${student.studentNum}</td>
+                        <td>${student.firstName}</td>
+                        <td>${student.lastName}</td>
+                        <td>${student.email}</td>
+                        <td>${student.addressStreet}, ${student.addressCity}, ${student.addressProvince}</td>
+                        <td>${student.TA ? 'Yes' : 'No'}</td>
+                        <td>${student.status}</td>
+                        <td>${student.course}</td>
+                    `;
+                });
+            })
+            .catch(error => {
+                console.error('Error loading JSON:', error);
+                document.getElementById("error-message").style.display = "block";
+            });
+    </script>
+
+    <footer>
+        <p>&copy; 2025 Student Website | Designed with simplicity and ease in mind</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Demo - WEB700</title>
+    <link rel="stylesheet" href="/css/theme.css"> <!-- Link to your theme.css -->
+</head>
+<body>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/htmlDemo">HTML Demo</a>
+        <a href="/students">Students</a>
+        <a href="/tas">Teaching Assistants</a>
+        <a href="/courses">Courses</a>
+        <a href="/students/add">Add Student</a>
+    </nav>
+
+    <div class="container">
+        <h1>HTML Demo - Explore HTML Elements</h1>
+        <p>This page serves as a playground for experimenting with various HTML elements. Dive into sections on tables, lists, images, audio, and video!</p>
+        <div class="content-section table-section">
+            <h2>Tables - HTML and CSS</h2>
+            <p>Tables are a great way to organize data. In the example below, we’ll show how to create a responsive table with HTML and style it with CSS:</p>
+            <table>
+                <caption>HTML Elements Table</caption>
+                <thead>
+                    <tr>
+                        <th>Element</th>
+                        <th>Description</th>
+                        <th>Usage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>&lt;div&gt;</td>
+                        <td>Defines a division or section in a document.</td>
+                        <td>Used to group content or apply CSS styles.</td>
+                    </tr>
+                    <tr>
+                        <td>&lt;h1&gt; - &lt;h6&gt;</td>
+                        <td>Defines HTML headings.</td>
+                        <td>Used for defining headings of different levels.</td>
+                    </tr>
+                    <tr>
+                        <td>&lt;a&gt;</td>
+                        <td>Defines a hyperlink.</td>
+                        <td>Used to create links to other pages or resources.</td>
+                    </tr>
+                    <tr>
+                        <td>&lt;p&gt;</td>
+                        <td>Defines a paragraph.</td>
+                        <td>Used to group sentences and sections of text.</td>
+                    </tr>
+                    <tr>
+                        <td>&lt;img&gt;</td>
+                        <td>Defines an image.</td>
+                        <td>Used to embed images in a document.</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3">Footer: Basic HTML Element Information</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <p>Notice how we used the <code>&lt;caption&gt;</code>, <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, and <code>&lt;tfoot&gt;</code> tags to create a clear and structured table layout for our HTML elements.</p>
+        </div>
+        
+        <div class="content-section list-section">
+            <h2>HTML Lists - A Breakdown</h2>
+            <p>Explore different types of lists in HTML. The following sections demonstrate ordered lists, unordered lists, and nested lists. These are often used in documentation, FAQs, and navigation menus:</p>
+            
+            <h3>Ordered List: HTML Elements</h3>
+            <ol>
+                <li>&lt;div&gt; - Defines a division or section in a document.</li>
+                <li>&lt;p&gt; - Defines a paragraph.</li>
+                <li>&lt;h1&gt; to &lt;h6&gt; - Defines HTML headings.</li>
+                <li>&lt;a&gt; - Defines a hyperlink.</li>
+            </ol>
+            <p>This ordered list shows some common HTML tags in the order of their importance when building a web page.</p>
+            
+            <h3>Unordered List: CSS Properties</h3>
+            <ul>
+                <li>background-color - Sets the background color of an element.</li>
+                <li>font-size - Sets the size of the font.</li>
+                <li>padding - Sets the space between the content and the border of an element.</li>
+                <li>margin - Sets the space outside an element.</li>
+            </ul>
+            <p>Here’s an unordered list of some fundamental CSS properties that help style HTML elements.</p>
+            
+            <h3>Nested List: JavaScript Methods</h3>
+            <ol>
+                <li>Array Methods
+                    <ul>
+                        <li>push() - Adds one or more elements to the end of an array.</li>
+                        <li>pop() - Removes the last element from an array.</li>
+                        <li>shift() - Removes the first element from an array.</li>
+                    </ul>
+                </li>
+                <br>
+                <li>String Methods
+                    <ul>
+                        <li>toUpperCase() - Converts a string to uppercase letters.</li>
+                        <li>toLowerCase() - Converts a string to lowercase letters.</li>
+                        <li>charAt() - Returns the character at a specified index in a string.</li>
+                    </ul>
+                </li>
+            </ol>
+            <p>This nested list showcases JavaScript methods for arrays and strings, each with examples of commonly used functions.</p>
+            <div class="content-section image-section">
+                <h2>Images</h2>
+                <p>Here are a few sample images:</p>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Tuscan_Landscape_6.JPG" alt="Nature Landscape" />
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Sunset_2007-1.jpg" alt="Sunset" />
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Monasterio_Khor_Virap%2C_Armenia%2C_2016-10-01%2C_DD_25.jpg" alt="Mountain Peak" />
+                <p>These images are included using the <code>img</code> tag and demonstrate the importance of providing descriptive <code>alt</code> text for accessibility.</p>
+            </div>
+
+        <div class="content-section">
+            <h2>Audio</h2>
+            <p>Listen to this sample audio:</p>
+            <audio controls>
+                <source src="https://pat-crawford-sdds.netlify.app/shared/fall-2021/web700/A3/sample-audio.mp3" type="audio/mp3" />
+                Your browser does not support the audio element.
+            </audio>
+            <p>This section introduces the use of the <code>audio</code> element for embedding audio on a webpage.</p>
+        </div>
+
+            <div class="content-section">
+                <h2>Video</h2>
+                <p>Watch this sample video:</p>
+                <video width="100%" controls>
+                    <source src="https://pat-crawford-sdds.netlify.app/shared/fall-2021/web700/A3/sample-video.mp4" type="video/mp4" />
+                    Your browser does not support the video element.
+                </video>
+                <p>This section introduces the use of the <code>video</code> element for embedding video on a webpage.</p>
+            </div>
+        </div>
+    
+        <footer>
+            <p>&copy; 2025 HTML Demo | Explore HTML Elements</p>
+        </footer>
+        
+    </body>
+    </html>
