@@ -1,0 +1,111 @@
+<!-- views/students.ejs -->
+<div class="container">
+    <h1>Edit Student Information</h1>
+
+    <% if (student) { %> <!-- Check if a student object is passed to the view -->
+        <h2><%= student.firstName %> <%= student.lastName %> - Student: <%= student.studentNum %></h2>
+        <hr />
+        
+        <!-- Form for updating student -->
+        <form method="post" action="/student/update">
+            <!-- Hidden input to store the student number (for identifying the student) -->
+            <input type="hidden" name="studentNum" value="<%= student.studentNum %>" />
+            
+            <!-- Personal Information Section -->
+            <fieldset>
+                <legend>Personal Information</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>First Name:</label>
+                            <input class="form-control" name="firstName" type="text" value="<%= student.firstName %>" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Last Name:</label>
+                            <input class="form-control" name="lastName" type="text" value="<%= student.lastName %>" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input class="form-control" name="email" type="email" value="<%= student.email %>" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Street Address:</label>
+                            <input class="form-control" name="addressStreet" type="text" value="<%= student.addressStreet %>" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>City:</label>
+                            <input class="form-control" name="addressCity" type="text" value="<%= student.addressCity %>" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Province:</label>
+                            <input class="form-control" name="addressProvince" type="text" value="<%= student.addressProvince %>" />
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Status Section -->
+            <fieldset>
+                <legend>Status Information</legend>
+                <div class="form-group">
+                    <label>TA:</label>
+                    <input type="checkbox" name="TA" <%= student.TA ? 'checked' : '' %> />
+                </div>
+
+                <div class="form-group">
+                    <label>Status:</label>
+                    <label><input type="radio" name="status" value="Full Time" <%= student.status === 'Full Time' ? 'checked' : '' %> /> Full Time</label>
+                    <label><input type="radio" name="status" value="Part Time" <%= student.status === 'Part Time' ? 'checked' : '' %> /> Part Time</label>
+                </div>
+
+                <!-- Example for the course selection -->
+                <div class="form-group">
+                    <label>Course:</label>
+                    <select class="form-control" name="course">
+                        <% const courses = [
+                            { "courseId": 1, "courseCode": "DES720", "courseDescription": "Relational Database Design and Implementation" },
+                            { "courseId": 2, "courseCode": "JAV745", "courseDescription": "Java Programming" },
+                            { "courseId": 3, "courseCode": "OPS705", "courseDescription": "Introduction to Cloud Computing" },
+                            { "courseId": 4, "courseCode": "SQL710", "courseDescription": "Database Administration and Management" },
+                            { "courseId": 5, "courseCode": "WEB700", "courseDescription": "Web Programming" },
+                            { "courseId": 6, "courseCode": "CAP805", "courseDescription": "Applied Capstone Project" },
+                            { "courseId": 7, "courseCode": "CJV805", "courseDescription": "Database Connectivity Using Java" },
+                            { "courseId": 8, "courseCode": "DBD800", "courseDescription": "Accessing Big Data" },
+                            { "courseId": 9, "courseCode": "DBW825", "courseDescription": "Datawarehousing" },
+                            { "courseId": 10, "courseCode": "SEC835", "courseDescription": "Security in Databases and Web Applications" },
+                            { "courseId": 11, "courseCode": "WTP100", "courseDescription": "Work Term Preparation (Work-Integrated Learning option only)" }
+                        ]; %>
+                    
+                        <% courses.forEach(function(course) { %>
+                            <option value="<%= course.courseId %>" <%= student.course === String(course.courseId) ? 'selected' : '' %>>
+                                <%= course.courseCode %> - <%= course.courseDescription %>
+                            </option>
+                        <% }); %>
+                    </select>
+                    
+                </div>
+            </fieldset>
+
+            <!-- Submit button to update the student -->
+            <input type="submit" class="btn btn-primary float-right" value="Update Student" /><br /><br /><br />
+        </form>
+    <% } else { %>
+        <p>No student found with the provided information.</p>
+    <% } %>
+</div>

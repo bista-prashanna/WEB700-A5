@@ -1,0 +1,38 @@
+<div class="container">
+    <h1>Available Courses</h1>
+    <p>Welcome! Below are the courses currently available for enrollment in the WEB700 program.</p>
+
+    <h2>Course List</h2>
+    <p>Here is the full list of courses offered this semester:</p>
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Course Code</th>
+                    <th scope="col">Course Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (courses && courses.length) { %>
+                    <% courses.forEach(course => { %>
+                        <tr>
+                            <td><a href="/course/<%= course.courseId %>"><%= course.courseCode %></a></td>
+                            <td><a href="/students?course=<%= course.courseId %>"><%= course.courseDescription %></a></td>
+                        </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="2">No courses available.</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+    <% if (!courses || courses.length === 0) { %>
+        <div class="col-md-12 text-center">
+            <strong><%= message %></strong>
+        </div>
+    <% } %>
+</div>

@@ -1,0 +1,43 @@
+<div class="container">
+    <h1>Students List</h1>
+
+    <% if (students && Array.isArray(students) && students.length > 0) { %>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Student Num</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Status</th>
+                        <th>Course</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% students.forEach(student => { %>
+                        <tr>
+                            <td><%= student.studentNum %></td>
+                            <td><a href="/student/edit/<%= student.studentNum %>"><%= student.firstName %> <%= student.lastName %></a></td>
+                            <td><a href="mailto:<%= student.email %>"><%= student.email %></a></td>
+                            <td><%= student.addressStreet || "N/A" %>, <%= student.addressCity || "N/A" %>, <%= student.addressProvince || "N/A" %></td>
+                            <td><%= student.status %></td>
+                            <td><%= student.course %></td>
+                            <td>
+                                <a href="/student/edit/<%= student.studentNum %>" class="btn btn-warning btn-sm">Edit</a>
+                                <form method="post" action="/student/delete/<%= student.studentNum %>" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    <% } else { %>
+        <div class="col-md-12 text-center">
+            <strong>No students found.</strong>
+        </div>
+    <% } %>
+</div>

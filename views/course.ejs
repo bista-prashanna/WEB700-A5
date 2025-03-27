@@ -1,0 +1,31 @@
+<%- include('layouts/main.ejs', { body: `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><%= course.courseDescription %> - Course Details</title>
+    </head>
+    <body>
+        <h1>Course Details</h1>
+        <hr />
+        <form>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="courseCode">Course Code</label>
+                        <input class="form-control" id="courseCode" name="courseCode" type="text" readonly value="<%= course.courseCode %>" />
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="form-group">
+                        <label for="courseDescription">Course Description</label>
+                        <input class="form-control" id="courseDescription" name="courseDescription" type="text" readonly value="<%= course.courseDescription %>" />
+                    </div>
+                </div>
+            </div>
+            <hr />
+        </form>
+    </body>
+    </html>
+` }) %>

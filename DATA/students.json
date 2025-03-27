@@ -3110,7 +3110,6 @@
   {
     "studentNum": 260,
     "firstName": "Jojo",
-    
     "lastName": "Tschierasche",
     "email": "jtschierasche6d@mySeneca.ca",
     "addressStreet": "0560 Di Loreto Crossing",
@@ -3119,5 +3118,29 @@
     "TA": false,
     "status": "Part Time",
     "course": 5
+  },
+  {
+    "firstName": "Prashanna",
+    "lastName": "Bista",
+    "email": "pbista3@myseneca.ca",
+    "addressStreet": "103 Brenda Cresent",
+    "addressCity": "Scarborough",
+    "addressProvince": "Ontario",
+    "status": "Full Time",
+    "course": "2",
+    "TA": false,
+    "studentNum": 521
+  },
+  {
+    "firstName": "Prashanna",
+    "lastName": "Bista",
+    "email": "pbista3@myseneca.ca",
+    "addressStreet": "103 Brenda Cresent",
+    "addressCity": "Scarborough",
+    "addressProvince": "Ontario",
+    "status": "Part Time",
+    "course": "6",
+    "TA": false,
+    "studentNum": 522
   }
 ]

@@ -13,12 +13,14 @@ module.exports.initialize = function () {
     return new Promise((resolve, reject) => {
         fs.readFile('./data/courses.json', 'utf8', (err, courseData) => {
             if (err) {
-                reject("unable to load courses"); return;
+                reject(`Unable to load courses: ${err.message}`);
+                return;
             }
 
             fs.readFile('./data/students.json', 'utf8', (err, studentData) => {
                 if (err) {
-                    reject("unable to load students"); return;
+                    reject(`Unable to load students: ${err.message}`);
+                    return;
                 }
 
                 dataCollection = new Data(JSON.parse(studentData), JSON.parse(courseData));
@@ -26,30 +28,26 @@ module.exports.initialize = function () {
             });
         });
     });
-}
+};
 
 module.exports.getAllStudents = function () {
     return new Promise((resolve, reject) => {
-        if (dataCollection.students.length == 0) {
-            reject("query returned 0 results"); return;
+        if (!dataCollection || !dataCollection.students || dataCollection.students.length === 0) {
+            reject("No students found in the database.");
+            return;
         }
 
         resolve(dataCollection.students);
     });
-}
+};
 
 module.exports.getTAs = function () {
     return new Promise(function (resolve, reject) {
-        var filteredStudents = [];
+        const filteredStudents = dataCollection.students.filter(student => student.TA === true);
 
-        for (let i = 0; i < dataCollection.students.length; i++) {
-            if (dataCollection.students[i].TA == true) {
-                filteredStudents.push(dataCollection.students[i]);
-            }
-        }
-
-        if (filteredStudents.length == 0) {
-            reject("query returned 0 results"); return;
+        if (filteredStudents.length === 0) {
+            reject("No teaching assistants found.");
+            return;
         }
 
         resolve(filteredStudents);
@@ -58,8 +56,9 @@ module.exports.getTAs = function () {
 
 module.exports.getCourses = function () {
     return new Promise((resolve, reject) => {
-        if (dataCollection.courses.length == 0) {
-            reject("query returned 0 results"); return;
+        if (!dataCollection || !dataCollection.courses || dataCollection.courses.length === 0) {
+            reject("No courses found in the database.");
+            return;
         }
 
         resolve(dataCollection.courses);
@@ -68,17 +67,10 @@ module.exports.getCourses = function () {
 
 module.exports.getStudentByNum = function (num) {
     return new Promise(function (resolve, reject) {
-        var foundStudent = null;
-
-        for (let i = 0; i < dataCollection.students.length; i++) {
-            if (dataCollection.students[i].studentNum == num) {
-                foundStudent = dataCollection.students[i];
-                break; // Exit loop once found
-            }
-        }
+        const foundStudent = dataCollection.students.find(student => student.studentNum == num);
 
         if (!foundStudent) {
-            reject("no results returned"); // More meaningful message
+            reject(`No student found with number ${num}`);
             return;
         }
 
@@ -88,16 +80,10 @@ module.exports.getStudentByNum = function (num) {
 
 module.exports.getStudentsByCourse = function (course) {
     return new Promise(function (resolve, reject) {
-        var filteredStudents = [];
+        const filteredStudents = dataCollection.students.filter(student => student.course == course);
 
-        for (let i = 0; i < dataCollection.students.length; i++) {
-            if (dataCollection.students[i].course == course) {
-                filteredStudents.push(dataCollection.students[i]);
-            }
-        }
-
-        if (filteredStudents.length == 0) {
-            reject("no results returned"); // More meaningful message
+        if (filteredStudents.length === 0) {
+            reject(`No students found for course ${course}`);
             return;
         }
 
@@ -105,25 +91,93 @@ module.exports.getStudentsByCourse = function (course) {
     });
 };
 
-// New function to add a student
 module.exports.addStudent = function (studentData) {
     return new Promise((resolve, reject) => {
+        // Input validation
+        if (!studentData.firstName || !studentData.lastName || !studentData.email) {
+            reject("First Name, Last Name, and Email are required fields.");
+            return;
+        }
+
         // Set TA property based on checkbox input
         studentData.TA = studentData.TA === undefined ? false : true;
 
         // Set studentNum based on the current length of the students array
         studentData.studentNum = dataCollection.students.length + 261; // Assuming studentNum starts from 261
 
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(studentData.email)) {
+            reject("Invalid email format.");
+            return;
+        }
+
         // Add the new student to the data collection
         dataCollection.students.push(studentData);
 
-        // Optionally, you may want to save the updated students array back to the JSON file
+        // Save the updated students array back to the JSON file
         fs.writeFile('./data/students.json', JSON.stringify(dataCollection.students, null, 2), (err) => {
             if (err) {
-                reject("unable to save student data");
+                reject(`Unable to save student data: ${err.message}`);
                 return;
             }
-            resolve(); // Resolve the promise if everything is successful
+
+            // Return the newly added student
+            resolve(studentData);
         });
+    });
+};
+
+module.exports.updateStudent = function (studentData) {
+    return new Promise((resolve, reject) => {
+        console.log("Updating student with studentNum:", studentData.studentNum);  // Log the student being updated
+        const studentIndex = dataCollection.students.findIndex(student => student.studentNum === studentData.studentNum);
+
+        if (studentIndex === -1) {
+            reject(`Student with studentNum ${studentData.studentNum} not found.`);
+            return;
+        }
+
+        // Validate the input fields
+        if (!studentData.firstName || !studentData.lastName || !studentData.email) {
+            reject("First Name, Last Name, and Email are required fields.");
+            return;
+        }
+
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(studentData.email)) {
+            reject("Invalid email format.");
+            return;
+        }
+
+        // Update the student data
+        dataCollection.students[studentIndex] = { ...dataCollection.students[studentIndex], ...studentData };
+
+        // Save the updated students array back to the JSON file
+        fs.writeFile('./data/students.json', JSON.stringify(dataCollection.students, null, 2), (err) => {
+            if (err) {
+                reject(`Unable to save student data: ${err.message}`);
+                return;
+            }
+
+            console.log("Student updated successfully:", dataCollection.students[studentIndex]);  // Log updated student data
+            resolve(dataCollection.students[studentIndex]);
+        });
+    });
+};
+
+// New Method: getCourseById
+module.exports.getCourseById = function (id) {
+    return new Promise(function (resolve, reject) {
+        // Find the course with the provided ID
+        const foundCourse = dataCollection.courses.find(course => course.courseId == id);
+
+        if (!foundCourse) {
+            reject(`No course found with ID ${id}`);
+            return;
+        }
+
+        resolve(foundCourse);
     });
 };
